@@ -14,15 +14,29 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamps();
-            $table->string('item_id', 36);
+            $table->string('item_id', 36)->nullable();
             $table->decimal('amount', 10, 2);
-            $table->string('user_id', 36);
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->decimal('discount', 10, 2)->nullable();
+            $table->string('user_id', 36)->nullable();
+            $table->foreign('item_id')
+                ->references('id')
+                ->on('items')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->decimal('discount', 10, 2)
+                ->nullable();
             $table->decimal('quantity', 8, 2);
-            $table->integer('customer_id')->nullable();
-            
+            $table->decimal('price', 10, 2);
+            $table->string('customer_id', 36)->nullable();
+            $table->foreign('customer_id')
+                ->references('id')
+                ->on('customers')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 

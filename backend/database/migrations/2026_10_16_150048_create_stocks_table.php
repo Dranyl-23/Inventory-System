@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('supplier_id', 36);
             $table->string('item_id', 36);
-            $table->decimal('quantity', 10, 2);
+            $table->integer('quantity')->unsigned();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
         });
