@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-v-for -->
 <template>
   <v-container class="fill-height d-flex flex-column justify-center" max-width="1100">
     <div>
@@ -23,7 +24,7 @@
       </div>
 
       <div class="mb-8 text-center">
-        <v-alert :color="item.color" v-for="item in items">
+        <v-alert v-for="item in items" :color="item.color">
           {{ item.text }}
         </v-alert>
       </div>
@@ -66,7 +67,12 @@
     { text: 'Two', color: 'warning'}
   ])
 
-  const author = ref({
+  interface Book {
+    id: number
+    title: string
+  }
+
+  const author = ref<{ books: Book[] }>({
     books: [],
   })
 
